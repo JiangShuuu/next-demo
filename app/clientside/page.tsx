@@ -8,12 +8,17 @@ export default function ClientComponent() {
   if (isFetching) return <div>Loading...</div>;
 
   return (
-    <div>
-      <FetchA />
-      <button onClick={() => refetch()}>Refetch</button>
-      <p>{isFetching ? "Loading..." : data?.order_by_pk?.id}</p>
-      <p>{data?.order_by_pk?.fleet.rental_company.organization.name}</p>
-      <p>{data?.order_by_pk?.id}</p>
+    <div className="p-4">
+      <div className="flex gap-2 pb-2">
+        <FetchA />
+        <button
+          className="border border-black rounded p-2"
+          onClick={() => refetch()}
+        >
+          Refetch
+        </button>
+      </div>
+      <p className="text-2xl font-bold">Client Component</p>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );

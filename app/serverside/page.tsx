@@ -1,3 +1,5 @@
+// https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#server-components--nextjs-app-router
+
 import {
   dehydrate,
   HydrationBoundary,
@@ -20,8 +22,10 @@ export default async function ServerComponent() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <p>{data?.order_by_pk?.id}</p>
-      {JSON.stringify(data)}
+      <div className="p-4">
+        <p className="text-2xl font-bold">Server Component</p>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
     </HydrationBoundary>
   );
 }

@@ -22,17 +22,7 @@ const config: CodegenConfig = {
         exposeFetcher: true,
         withHooks: true,
         dedupeFragments: true,
-        fetcher: '@/graphql/fetcher#fetcher',
-        // fetcher: {
-        //   endpoint: process.env.NEXT_PUBLIC_PAYLOAD_API_URL,
-        //   fetchParams: {
-        //     headers: {
-        //       'accept': '*/*',
-        //       'content-type': 'application/json',
-        //       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PAYLOAD_API_TOKEN}`,
-        //     },
-        //   },
-        // },
+        fetcher: '@/graphql/lib/fetcher#fetcher',
       },
     },
   },
