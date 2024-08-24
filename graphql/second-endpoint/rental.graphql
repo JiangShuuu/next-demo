@@ -1,0 +1,13 @@
+query GetRentalCompanyExtraInfo($id: Int!) {
+  getRentalCompanyExtraInfo(rentalCompanyId: $id) {
+    rentalCompanyPolicyIds
+    rentalCompanyInsuranceProducts {
+      insuranceProductId
+      name
+      description
+      redirectLink
+      publicImageUrl
+      basePrice
+    }
+  }
+}

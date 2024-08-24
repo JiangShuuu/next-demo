@@ -7,19 +7,19 @@ import {
 } from "@tanstack/react-query";
 
 import {
-  useMyOrdersQuery,
-  MyOrdersQuery,
-} from "@/graphql/generated/first-endpoint";
+  useGetRentalCompanyExtraInfoQuery,
+  GetRentalCompanyExtraInfoQuery,
+} from "@/graphql/generated/second-endpoint";
 
 export default async function ServerComponent() {
   const queryClient = new QueryClient();
 
-  const fetchAllPosts = useMyOrdersQuery.fetcher({
-    id: 1704,
+  const fetchAllPosts = useGetRentalCompanyExtraInfoQuery.fetcher({
+    id: 187,
   });
 
-  const data = await queryClient.fetchQuery<MyOrdersQuery>({
-    queryKey: useMyOrdersQuery.getKey({ id: 1704 }),
+  const data = await queryClient.fetchQuery<GetRentalCompanyExtraInfoQuery>({
+    queryKey: useGetRentalCompanyExtraInfoQuery.getKey({ id: 187 }),
     queryFn: fetchAllPosts,
   });
 

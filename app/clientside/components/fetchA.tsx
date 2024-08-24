@@ -1,5 +1,5 @@
 "use client";
-import { useMyOrdersQuery } from "@/graphql/generated/client";
+import { useMyOrdersQuery } from "@/graphql/generated/first-endpoint";
 
 export function FetchA() {
   const { refetch } = useMyOrdersQuery({ id: 1704 });

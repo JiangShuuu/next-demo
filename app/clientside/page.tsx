@@ -1,11 +1,13 @@
 "use client";
 
-import { useMyOrdersQuery } from "@/graphql/generated/client";
+import { useMyOrdersQuery } from "@/graphql/generated/first-endpoint";
 import { FetchA } from "./components/fetchA";
+
 export default function ClientComponent() {
   const { data, isFetching, error, refetch } = useMyOrdersQuery({ id: 1704 });
 
   if (isFetching) return <div>Loading...</div>;
+  if (error) return <div>Error: {JSON.stringify(error, null, 2)}</div>;
 
   return (
     <div className="p-4">
