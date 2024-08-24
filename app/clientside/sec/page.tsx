@@ -7,7 +7,7 @@ export default function ClientSec() {
     useGetRentalCompanyExtraInfoQuery({ id: 187 });
 
   if (isFetching) return <div>Loading...</div>;
-  if (error) return <div>Error: {JSON.stringify(error.message, null, 2)}</div>;
+  if (error) return <div>Error: {JSON.stringify(error, null, 2)}</div>;
 
   return (
     <div className="p-4">

@@ -1,6 +1,6 @@
 // https://plainenglish.io/community/next-js-app-router-graphql-codegen-and-tanstack-query#client-component-fetching
 
-require('dotenv').config()
+require('dotenv').config({ path: '.env.local' })
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
@@ -8,9 +8,9 @@ const config: CodegenConfig = {
   generates: {
     './graphql/generated/first-endpoint.ts': {
       schema: {
-        [process.env.NEXT_PUBLIC_PAYLOAD_API_URL as string]: {
+        [process.env.NEXT_APP_PAYLOAD_API_URL as string]: {
           headers: {
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PAYLOAD_API_TOKEN}`,
+            'Authorization': `Bearer ${process.env.NEXT_APP_PAYLOAD_API_TOKEN}`,
           },
         },
       },
@@ -22,11 +22,11 @@ const config: CodegenConfig = {
         exposeFetcher: true,
         withHooks: true,
         dedupeFragments: true,
-        fetcher: '@/graphql/lib/fetcher#fetcher',
+        fetcher: '@/graphql/first-endpoint/fetcher#fetcher',
       },
     },
     './graphql/generated/second-endpoint.ts': {
-      schema: process.env.NEXT_PUBLIC_PAYLOAD_API_URL_2,
+      schema: process.env.NEXT_APP_PAYLOAD_API_URL_2,
       plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
       documents: './graphql/second-endpoint/*.graphql',
       config: {
@@ -35,7 +35,7 @@ const config: CodegenConfig = {
         exposeFetcher: true,
         withHooks: true,
         dedupeFragments: true,
-        fetcher: '@/graphql/lib/fetcher_2#fetcher',
+        fetcher: '@/graphql/second-endpoint/fetcher#fetcher',
       },
     },
   },
