@@ -1,0 +1,177 @@
+query MyOrders($id: bigint!) {
+  order_by_pk(id: $id) {
+    created_at
+    deleted_at
+    end_at_snapshot
+    id
+    order_number
+    payment_type
+    picked_up_at
+    returned_at
+    canceled_at
+    trip_status
+    estimated_amount
+    deposit_amount
+    vehicle {
+      id
+      photo_path
+      station {
+        id
+        address
+        area
+        city
+        name
+        open
+        close
+        latitude
+        longitude
+        fleet {
+          id
+          delayed_pickup_interval
+          early_pickup_interval
+          max_order_start_at_interval
+          store_pickup_earliest_order_start_at_interval
+          self_pickup_earliest_order_start_at_interval
+          telephone
+          organization {
+            name
+          }
+          rental_company {
+            id
+            organization {
+              name
+            }
+            telephone
+          }
+        }
+        vehicles(
+          where: { deleted_at: { _is_null: true }, status: { _eq: "READY" } }
+        ) {
+          id
+        }
+      }
+      vehicle_model {
+        id
+        name
+        seats
+        origin
+        vehicle_brand {
+          id
+          name
+        }
+        vehicle_type {
+          id
+          name
+        }
+      }
+      devices {
+        imei
+      }
+    }
+    order_billings(
+      where: { deleted_at: { _is_null: true }, canceled_at: { _is_null: true } }
+    ) {
+      id
+      category
+      quantity
+      rate
+      status
+      billing_transactions(where: { deleted_at: { _is_null: true } }) {
+        id
+        amount
+        status
+        cancelled_at
+        created_at
+        is_need_invoice
+        current_invoice_transaction {
+          invoice_number
+          id
+          tax
+          remain_amt
+          amount_without_tax
+          created_at
+          status
+        }
+        refunds(order_by: { id: asc }) {
+          id
+          created_at
+          status
+          refund_amount
+          refund_at
+          statement
+        }
+      }
+      billing_etc {
+        activated_at
+      }
+    }
+    fleet {
+      id
+      delayed_pickup_interval
+      early_pickup_interval
+      max_order_start_at_interval
+      store_pickup_earliest_order_start_at_interval
+      self_pickup_earliest_order_start_at_interval
+      telephone
+      organization {
+        name
+      }
+      rental_company {
+        id
+        organization {
+          name
+        }
+        telephone
+      }
+      rental_company_id
+    }
+    station {
+      id
+      address
+      area
+      city
+      name
+      open
+      close
+      latitude
+      longitude
+      fleet {
+        id
+        delayed_pickup_interval
+        early_pickup_interval
+        max_order_start_at_interval
+        store_pickup_earliest_order_start_at_interval
+        self_pickup_earliest_order_start_at_interval
+        telephone
+        organization {
+          name
+        }
+        rental_company {
+          id
+          organization {
+            name
+          }
+          telephone
+        }
+      }
+      vehicles(
+        where: { deleted_at: { _is_null: true }, status: { _eq: "READY" } }
+      ) {
+        id
+      }
+    }
+    rental_company_name_snapshot
+    station_address_snapshot
+    station_name_snapshot
+    vehicle_brand_name_snapshot
+    vehicle_license_plate_front_snapshot
+    vehicle_license_plate_rear_snapshot
+    vehicle_model_name_snapshot
+    vehicle_seats_snapshot
+    vehicle_type_name_snapshot
+    total_discount_amount
+    rental_company_policy_ids_snapshot
+    start_at_snapshot
+    station_type_snapshot
+  }
+}
