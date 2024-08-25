@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { fetcher } from '@/graphql/first-endpoint/fetcher';
+import { fetcher } from '@/graphql/lib/first-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -22408,208 +22408,64 @@ export type Vehiclestatus_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['vehiclestatus']['input']>>;
 };
 
-export type MyOrdersQueryVariables = Exact<{
+export type StationByIdQueryVariables = Exact<{
   id: Scalars['bigint']['input'];
 }>;
 
 
-export type MyOrdersQuery = { __typename?: 'query_root', order_by_pk?: { __typename?: 'order', created_at: any, deleted_at?: any | null, end_at_snapshot: any, id: any, order_number: string, payment_type: any, picked_up_at?: any | null, returned_at?: any | null, canceled_at?: any | null, trip_status: any, estimated_amount: number, deposit_amount: number, rental_company_name_snapshot: string, station_address_snapshot: string, station_name_snapshot: string, vehicle_brand_name_snapshot: string, vehicle_license_plate_front_snapshot: string, vehicle_license_plate_rear_snapshot: string, vehicle_model_name_snapshot: string, vehicle_seats_snapshot: number, vehicle_type_name_snapshot: string, total_discount_amount: number, rental_company_policy_ids_snapshot: Array<number>, start_at_snapshot: any, station_type_snapshot: any, vehicle: { __typename?: 'vehicle', id: any, photo_path?: string | null, station?: { __typename?: 'station', id: any, address: string, area: string, city: string, name: string, open: any, close: any, latitude?: any | null, longitude?: any | null, fleet: { __typename?: 'fleet', id: any, delayed_pickup_interval: any, early_pickup_interval: any, max_order_start_at_interval: any, store_pickup_earliest_order_start_at_interval: any, self_pickup_earliest_order_start_at_interval: any, telephone: string, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', id: any, telephone: string, organization: { __typename?: 'organization', name: string } } }, vehicles: Array<{ __typename?: 'vehicle', id: any }> } | null, vehicle_model?: { __typename?: 'vehicle_model', id: any, name: string, seats: number, origin: any, vehicle_brand: { __typename?: 'vehicle_brand', id: any, name: string }, vehicle_type: { __typename?: 'vehicle_type', id: any, name: string } } | null, devices: Array<{ __typename?: 'device', imei: string }> }, order_billings: Array<{ __typename?: 'order_billing', id: any, category: any, quantity: number, rate: number, status: any, billing_transactions: Array<{ __typename?: 'billing_transaction', id: any, amount: any, status: any, cancelled_at?: any | null, created_at: any, is_need_invoice: boolean, current_invoice_transaction?: { __typename?: 'einvoice_transaction', invoice_number?: string | null, id: any, tax: any, remain_amt: any, amount_without_tax: any, created_at: any, status: any } | null, refunds: Array<{ __typename?: 'refund', id: any, created_at: any, status: any, refund_amount: any, refund_at?: any | null, statement: string }> }>, billing_etc?: { __typename?: 'billing_etc', activated_at: any } | null }>, fleet: { __typename?: 'fleet', id: any, delayed_pickup_interval: any, early_pickup_interval: any, max_order_start_at_interval: any, store_pickup_earliest_order_start_at_interval: any, self_pickup_earliest_order_start_at_interval: any, telephone: string, rental_company_id: any, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', id: any, telephone: string, organization: { __typename?: 'organization', name: string } } }, station: { __typename?: 'station', id: any, address: string, area: string, city: string, name: string, open: any, close: any, latitude?: any | null, longitude?: any | null, fleet: { __typename?: 'fleet', id: any, delayed_pickup_interval: any, early_pickup_interval: any, max_order_start_at_interval: any, store_pickup_earliest_order_start_at_interval: any, self_pickup_earliest_order_start_at_interval: any, telephone: string, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', id: any, telephone: string, organization: { __typename?: 'organization', name: string } } }, vehicles: Array<{ __typename?: 'vehicle', id: any }> } } | null };
+export type StationByIdQuery = { __typename?: 'query_root', station_by_pk?: { __typename?: 'station', name: string, address: string, open: any, close: any, latitude?: any | null, longitude?: any | null, fleet: { __typename?: 'fleet', id: any, telephone: string, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', organization: { __typename?: 'organization', id: any, name: string }, rental_company_policies: Array<{ __typename?: 'rental_company_policy', rental_policy: { __typename?: 'rental_policy', id: any, description: string } }> } } } | null };
 
 
 
-export const MyOrdersDocument = `
-    query MyOrders($id: bigint!) {
-  order_by_pk(id: $id) {
-    created_at
-    deleted_at
-    end_at_snapshot
-    id
-    order_number
-    payment_type
-    picked_up_at
-    returned_at
-    canceled_at
-    trip_status
-    estimated_amount
-    deposit_amount
-    vehicle {
-      id
-      photo_path
-      station {
-        id
-        address
-        area
-        city
-        name
-        open
-        close
-        latitude
-        longitude
-        fleet {
-          id
-          delayed_pickup_interval
-          early_pickup_interval
-          max_order_start_at_interval
-          store_pickup_earliest_order_start_at_interval
-          self_pickup_earliest_order_start_at_interval
-          telephone
-          organization {
-            name
-          }
-          rental_company {
-            id
-            organization {
-              name
-            }
-            telephone
-          }
-        }
-        vehicles(where: {deleted_at: {_is_null: true}, status: {_eq: "READY"}}) {
-          id
-        }
-      }
-      vehicle_model {
-        id
-        name
-        seats
-        origin
-        vehicle_brand {
-          id
-          name
-        }
-        vehicle_type {
-          id
-          name
-        }
-      }
-      devices {
-        imei
-      }
-    }
-    order_billings(
-      where: {deleted_at: {_is_null: true}, canceled_at: {_is_null: true}}
-    ) {
-      id
-      category
-      quantity
-      rate
-      status
-      billing_transactions(where: {deleted_at: {_is_null: true}}) {
-        id
-        amount
-        status
-        cancelled_at
-        created_at
-        is_need_invoice
-        current_invoice_transaction {
-          invoice_number
-          id
-          tax
-          remain_amt
-          amount_without_tax
-          created_at
-          status
-        }
-        refunds(order_by: {id: asc}) {
-          id
-          created_at
-          status
-          refund_amount
-          refund_at
-          statement
-        }
-      }
-      billing_etc {
-        activated_at
-      }
-    }
+export const StationByIdDocument = `
+    query StationById($id: bigint!) {
+  station_by_pk(id: $id) {
+    name
+    address
+    open
+    close
+    latitude
+    longitude
     fleet {
       id
-      delayed_pickup_interval
-      early_pickup_interval
-      max_order_start_at_interval
-      store_pickup_earliest_order_start_at_interval
-      self_pickup_earliest_order_start_at_interval
       telephone
       organization {
         name
       }
       rental_company {
-        id
         organization {
-          name
-        }
-        telephone
-      }
-      rental_company_id
-    }
-    station {
-      id
-      address
-      area
-      city
-      name
-      open
-      close
-      latitude
-      longitude
-      fleet {
-        id
-        delayed_pickup_interval
-        early_pickup_interval
-        max_order_start_at_interval
-        store_pickup_earliest_order_start_at_interval
-        self_pickup_earliest_order_start_at_interval
-        telephone
-        organization {
-          name
-        }
-        rental_company {
           id
-          organization {
-            name
+          name
+        }
+        rental_company_policies {
+          rental_policy {
+            id
+            description
           }
-          telephone
         }
       }
-      vehicles(where: {deleted_at: {_is_null: true}, status: {_eq: "READY"}}) {
-        id
-      }
     }
-    rental_company_name_snapshot
-    station_address_snapshot
-    station_name_snapshot
-    vehicle_brand_name_snapshot
-    vehicle_license_plate_front_snapshot
-    vehicle_license_plate_rear_snapshot
-    vehicle_model_name_snapshot
-    vehicle_seats_snapshot
-    vehicle_type_name_snapshot
-    total_discount_amount
-    rental_company_policy_ids_snapshot
-    start_at_snapshot
-    station_type_snapshot
   }
 }
     `;
 
-export const useMyOrdersQuery = <
-      TData = MyOrdersQuery,
+export const useStationByIdQuery = <
+      TData = StationByIdQuery,
       TError = unknown
     >(
-      variables: MyOrdersQueryVariables,
-      options?: Omit<UseQueryOptions<MyOrdersQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<MyOrdersQuery, TError, TData>['queryKey'] }
+      variables: StationByIdQueryVariables,
+      options?: Omit<UseQueryOptions<StationByIdQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<StationByIdQuery, TError, TData>['queryKey'] }
     ) => {
     
-    return useQuery<MyOrdersQuery, TError, TData>(
+    return useQuery<StationByIdQuery, TError, TData>(
       {
-    queryKey: ['MyOrders', variables],
-    queryFn: fetcher<MyOrdersQuery, MyOrdersQueryVariables>(MyOrdersDocument, variables),
+    queryKey: ['StationById', variables],
+    queryFn: fetcher<StationByIdQuery, StationByIdQueryVariables>(StationByIdDocument, variables),
     ...options
   }
     )};
 
-useMyOrdersQuery.getKey = (variables: MyOrdersQueryVariables) => ['MyOrders', variables];
+useStationByIdQuery.getKey = (variables: StationByIdQueryVariables) => ['StationById', variables];
 
 
-useMyOrdersQuery.fetcher = (variables: MyOrdersQueryVariables, options?: RequestInit['headers']) => fetcher<MyOrdersQuery, MyOrdersQueryVariables>(MyOrdersDocument, variables, options);
+useStationByIdQuery.fetcher = (variables: StationByIdQueryVariables, options?: RequestInit['headers']) => fetcher<StationByIdQuery, StationByIdQueryVariables>(StationByIdDocument, variables, options);

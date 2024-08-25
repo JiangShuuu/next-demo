@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 // https://tanstack.com/query/v5/docs/framework/react/guides/advanced-ssr#prefetching-and-dehydrating-data
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import {
   isServer,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 function makeQueryClient() {
   return new QueryClient({

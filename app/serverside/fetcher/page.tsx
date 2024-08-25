@@ -7,19 +7,24 @@ import {
 } from "@tanstack/react-query";
 
 import {
-  useGetRentalCompanyExtraInfoQuery,
-  GetRentalCompanyExtraInfoQuery,
-} from "@/graphql/generated/second-endpoint";
+  useStationByIdQuery,
+  StationByIdQuery,
+} from "@/graphql/generated/first-endpoint";
 
 export default async function ServerComponent() {
   const queryClient = new QueryClient();
 
-  const fetchAllPosts = useGetRentalCompanyExtraInfoQuery.fetcher({
-    id: 187,
-  });
+  const fetchAllPosts = useStationByIdQuery.fetcher(
+    {
+      id: 1,
+    },
+    {
+      test: "123",
+    }
+  );
 
-  const data = await queryClient.fetchQuery<GetRentalCompanyExtraInfoQuery>({
-    queryKey: useGetRentalCompanyExtraInfoQuery.getKey({ id: 187 }),
+  const data = await queryClient.fetchQuery<StationByIdQuery>({
+    queryKey: useStationByIdQuery.getKey({ id: 1704 }),
     queryFn: fetchAllPosts,
   });
 

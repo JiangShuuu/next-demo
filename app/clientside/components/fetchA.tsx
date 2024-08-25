@@ -1,12 +1,12 @@
 "use client";
-import { useMyOrdersQuery } from "@/graphql/generated/first-endpoint";
+import { useStationByIdQuery } from "@/graphql/generated/first-endpoint";
 
 export function FetchA() {
-  const { refetch } = useMyOrdersQuery({ id: 1704 });
+  const { refetch } = useStationByIdQuery({ id: 1 });
 
   return (
     <button
-      className="border border-black rounded p-2"
+      className="rounded border border-black p-2"
       onClick={() => refetch()}
     >
       children refetch

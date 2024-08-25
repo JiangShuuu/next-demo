@@ -1,5 +1,5 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { fetcher } from '@/graphql/second-endpoint/fetcher';
+import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import { fetcher } from '@/graphql/lib/second-fetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -2185,6 +2185,14 @@ export type VerifyToken = {
   token: Token;
 };
 
+export type CustomerLoginMutationVariables = Exact<{
+  phoneNumber: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type CustomerLoginMutation = { __typename?: 'Mutation', customerLogin: { __typename: 'LoginFail', message: string } | { __typename: 'LoginSuccess', token: { __typename?: 'Token', accessToken: string, tokenType: string } } | { __typename: 'UnverifiedPhone', message: string } };
+
 export type GetRentalCompanyExtraInfoQueryVariables = Exact<{
   id: Scalars['Int']['input'];
 }>;
@@ -2193,6 +2201,44 @@ export type GetRentalCompanyExtraInfoQueryVariables = Exact<{
 export type GetRentalCompanyExtraInfoQuery = { __typename?: 'Query', getRentalCompanyExtraInfo: { __typename?: 'RentalCompanyExtraInfoResponse', rentalCompanyPolicyIds: Array<number>, rentalCompanyInsuranceProducts: Array<{ __typename?: 'InsuranceProduct', insuranceProductId: number, name: string, description: string, redirectLink: string, publicImageUrl?: string | null, basePrice?: number | null }> } };
 
 
+
+export const CustomerLoginDocument = `
+    mutation CustomerLogin($phoneNumber: String!, $password: String!) {
+  customerLogin(caId: 2, phoneNumber: $phoneNumber, password: $password) {
+    ... on LoginSuccess {
+      __typename
+      token {
+        accessToken
+        tokenType
+      }
+    }
+    ... on LoginFail {
+      __typename
+      message
+    }
+    ... on UnverifiedPhone {
+      __typename
+      message
+    }
+  }
+}
+    `;
+
+export const useCustomerLoginMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CustomerLoginMutation, TError, CustomerLoginMutationVariables, TContext>) => {
+    
+    return useMutation<CustomerLoginMutation, TError, CustomerLoginMutationVariables, TContext>(
+      {
+    mutationKey: ['CustomerLogin'],
+    mutationFn: (variables?: CustomerLoginMutationVariables) => fetcher<CustomerLoginMutation, CustomerLoginMutationVariables>(CustomerLoginDocument, variables)(),
+    ...options
+  }
+    )};
+
+
+useCustomerLoginMutation.fetcher = (variables: CustomerLoginMutationVariables, options?: RequestInit['headers']) => fetcher<CustomerLoginMutation, CustomerLoginMutationVariables>(CustomerLoginDocument, variables, options);
 
 export const GetRentalCompanyExtraInfoDocument = `
     query GetRentalCompanyExtraInfo($id: Int!) {

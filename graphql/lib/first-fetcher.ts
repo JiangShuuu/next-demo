@@ -1,8 +1,11 @@
 // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-react-query#using-custom-fetcher
 
+import { isServer } from '@tanstack/react-query';
+
 type FetchOptions = {
   cache?: RequestCache;
   next?: NextFetchRequestConfig;
+  verifyToken?: string;
 };
 
 type RequestInit = {
@@ -12,15 +15,33 @@ type RequestInit = {
 export const fetcher = <TData, TVariables>(
   query: string,
   variables?: TVariables,
-  options?: RequestInit["headers"]
+  options?: RequestInit['headers'],
 ) => {
   return async (): Promise<TData> => {
+    console.log('first-fetcher', options);
+    let accessToken = process.env.NEXT_PUBLIC_PAYLOAD_API_TOKEN;
+
+    if (isServer) {
+      // server side token
+      accessToken = '';
+    } else {
+      // client side token
+      accessToken = '';
+    }
+
+    // options override token
+    if (options?.verifyToken) {
+      accessToken = options.verifyToken;
+    }
+
+    accessToken = process.env.NEXT_PUBLIC_PAYLOAD_API_TOKEN;
+
     const { next, cache, ...restOptions } = options || {};
     const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_API_URL}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYLOAD_API_TOKEN}`,
+        'Content-Type': 'application/json',
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...restOptions,
       },
       body: JSON.stringify({ query, variables }),
