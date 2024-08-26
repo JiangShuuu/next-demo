@@ -1,5 +1,5 @@
 ## 站點 by id
-query StationById($id: bigint!) {
+query FirstExample($id: bigint!) {
   station_by_pk(id: $id) {
     name
     address

@@ -33,7 +33,7 @@ export default function ClientMutation() {
 
   return (
     <div className="space-y-4 p-4">
-      <p className="text-2xl font-bold">Backend Client Mutation</p>
+      <p className="text-2xl font-bold">Client Mutation</p>
       <button
         className="rounded border border-black p-2"
         onClick={handleSubmit}

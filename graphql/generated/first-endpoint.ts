@@ -22408,17 +22408,17 @@ export type Vehiclestatus_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['vehiclestatus']['input']>>;
 };
 
-export type StationByIdQueryVariables = Exact<{
+export type FirstExampleQueryVariables = Exact<{
   id: Scalars['bigint']['input'];
 }>;
 
 
-export type StationByIdQuery = { __typename?: 'query_root', station_by_pk?: { __typename?: 'station', name: string, address: string, open: any, close: any, latitude?: any | null, longitude?: any | null, fleet: { __typename?: 'fleet', id: any, telephone: string, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', organization: { __typename?: 'organization', id: any, name: string }, rental_company_policies: Array<{ __typename?: 'rental_company_policy', rental_policy: { __typename?: 'rental_policy', id: any, description: string } }> } } } | null };
+export type FirstExampleQuery = { __typename?: 'query_root', station_by_pk?: { __typename?: 'station', name: string, address: string, open: any, close: any, latitude?: any | null, longitude?: any | null, fleet: { __typename?: 'fleet', id: any, telephone: string, organization: { __typename?: 'organization', name: string }, rental_company: { __typename?: 'rental_company', organization: { __typename?: 'organization', id: any, name: string }, rental_company_policies: Array<{ __typename?: 'rental_company_policy', rental_policy: { __typename?: 'rental_policy', id: any, description: string } }> } } } | null };
 
 
 
-export const StationByIdDocument = `
-    query StationById($id: bigint!) {
+export const FirstExampleDocument = `
+    query FirstExample($id: bigint!) {
   station_by_pk(id: $id) {
     name
     address
@@ -22449,23 +22449,23 @@ export const StationByIdDocument = `
 }
     `;
 
-export const useStationByIdQuery = <
-      TData = StationByIdQuery,
+export const useFirstExampleQuery = <
+      TData = FirstExampleQuery,
       TError = unknown
     >(
-      variables: StationByIdQueryVariables,
-      options?: Omit<UseQueryOptions<StationByIdQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<StationByIdQuery, TError, TData>['queryKey'] }
+      variables: FirstExampleQueryVariables,
+      options?: Omit<UseQueryOptions<FirstExampleQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<FirstExampleQuery, TError, TData>['queryKey'] }
     ) => {
     
-    return useQuery<StationByIdQuery, TError, TData>(
+    return useQuery<FirstExampleQuery, TError, TData>(
       {
-    queryKey: ['StationById', variables],
-    queryFn: fetcher<StationByIdQuery, StationByIdQueryVariables>(StationByIdDocument, variables),
+    queryKey: ['FirstExample', variables],
+    queryFn: fetcher<FirstExampleQuery, FirstExampleQueryVariables>(FirstExampleDocument, variables),
     ...options
   }
     )};
 
-useStationByIdQuery.getKey = (variables: StationByIdQueryVariables) => ['StationById', variables];
+useFirstExampleQuery.getKey = (variables: FirstExampleQueryVariables) => ['FirstExample', variables];
 
 
-useStationByIdQuery.fetcher = (variables: StationByIdQueryVariables, options?: RequestInit['headers']) => fetcher<StationByIdQuery, StationByIdQueryVariables>(StationByIdDocument, variables, options);
+useFirstExampleQuery.fetcher = (variables: FirstExampleQueryVariables, options?: RequestInit['headers']) => fetcher<FirstExampleQuery, FirstExampleQueryVariables>(FirstExampleDocument, variables, options);

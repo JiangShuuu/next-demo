@@ -7,14 +7,14 @@ import {
 } from "@tanstack/react-query";
 
 import {
-  useStationByIdQuery,
-  StationByIdQuery,
+  useFirstExampleQuery,
+  FirstExampleQuery,
 } from "@/graphql/generated/first-endpoint";
 
 export default async function ServerComponent() {
   const queryClient = new QueryClient();
 
-  const fetchAllPosts = useStationByIdQuery.fetcher(
+  const fetchAllPosts = useFirstExampleQuery.fetcher(
     {
       id: 1,
     },
@@ -23,8 +23,8 @@ export default async function ServerComponent() {
     }
   );
 
-  const data = await queryClient.fetchQuery<StationByIdQuery>({
-    queryKey: useStationByIdQuery.getKey({ id: 1704 }),
+  const data = await queryClient.fetchQuery<FirstExampleQuery>({
+    queryKey: useFirstExampleQuery.getKey({ id: 1 }),
     queryFn: fetchAllPosts,
   });
 

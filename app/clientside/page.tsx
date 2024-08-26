@@ -1,10 +1,10 @@
 "use client";
 
-import { useStationByIdQuery } from "@/graphql/generated/first-endpoint";
-import { FetchA } from "./components/fetchA";
+import { useFirstExampleQuery } from "@/graphql/generated/first-endpoint";
+import { ChildButton } from "./components/childButton";
 
 export default function ClientComponent() {
-  const { data, isFetching, error, refetch } = useStationByIdQuery({
+  const { data, isFetching, error, refetch } = useFirstExampleQuery({
     id: 1,
   });
 
@@ -14,7 +14,7 @@ export default function ClientComponent() {
   return (
     <div className="p-4">
       <div className="flex gap-2 pb-2">
-        <FetchA />
+        <ChildButton />
         <button
           className="rounded border border-black p-2"
           onClick={() => refetch()}

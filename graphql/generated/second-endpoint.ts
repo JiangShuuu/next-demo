@@ -2193,12 +2193,12 @@ export type CustomerLoginMutationVariables = Exact<{
 
 export type CustomerLoginMutation = { __typename?: 'Mutation', customerLogin: { __typename: 'LoginFail', message: string } | { __typename: 'LoginSuccess', token: { __typename?: 'Token', accessToken: string, tokenType: string } } | { __typename: 'UnverifiedPhone', message: string } };
 
-export type GetRentalCompanyExtraInfoQueryVariables = Exact<{
+export type SecondExampleQueryVariables = Exact<{
   id: Scalars['Int']['input'];
 }>;
 
 
-export type GetRentalCompanyExtraInfoQuery = { __typename?: 'Query', getRentalCompanyExtraInfo: { __typename?: 'RentalCompanyExtraInfoResponse', rentalCompanyPolicyIds: Array<number>, rentalCompanyInsuranceProducts: Array<{ __typename?: 'InsuranceProduct', insuranceProductId: number, name: string, description: string, redirectLink: string, publicImageUrl?: string | null, basePrice?: number | null }> } };
+export type SecondExampleQuery = { __typename?: 'Query', getRentalCompanyExtraInfo: { __typename?: 'RentalCompanyExtraInfoResponse', rentalCompanyPolicyIds: Array<number>, rentalCompanyInsuranceProducts: Array<{ __typename?: 'InsuranceProduct', insuranceProductId: number, name: string, description: string, redirectLink: string, publicImageUrl?: string | null, basePrice?: number | null }> } };
 
 
 
@@ -2240,8 +2240,8 @@ export const useCustomerLoginMutation = <
 
 useCustomerLoginMutation.fetcher = (variables: CustomerLoginMutationVariables, options?: RequestInit['headers']) => fetcher<CustomerLoginMutation, CustomerLoginMutationVariables>(CustomerLoginDocument, variables, options);
 
-export const GetRentalCompanyExtraInfoDocument = `
-    query GetRentalCompanyExtraInfo($id: Int!) {
+export const SecondExampleDocument = `
+    query SecondExample($id: Int!) {
   getRentalCompanyExtraInfo(rentalCompanyId: $id) {
     rentalCompanyPolicyIds
     rentalCompanyInsuranceProducts {
@@ -2256,23 +2256,23 @@ export const GetRentalCompanyExtraInfoDocument = `
 }
     `;
 
-export const useGetRentalCompanyExtraInfoQuery = <
-      TData = GetRentalCompanyExtraInfoQuery,
+export const useSecondExampleQuery = <
+      TData = SecondExampleQuery,
       TError = unknown
     >(
-      variables: GetRentalCompanyExtraInfoQueryVariables,
-      options?: Omit<UseQueryOptions<GetRentalCompanyExtraInfoQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetRentalCompanyExtraInfoQuery, TError, TData>['queryKey'] }
+      variables: SecondExampleQueryVariables,
+      options?: Omit<UseQueryOptions<SecondExampleQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<SecondExampleQuery, TError, TData>['queryKey'] }
     ) => {
     
-    return useQuery<GetRentalCompanyExtraInfoQuery, TError, TData>(
+    return useQuery<SecondExampleQuery, TError, TData>(
       {
-    queryKey: ['GetRentalCompanyExtraInfo', variables],
-    queryFn: fetcher<GetRentalCompanyExtraInfoQuery, GetRentalCompanyExtraInfoQueryVariables>(GetRentalCompanyExtraInfoDocument, variables),
+    queryKey: ['SecondExample', variables],
+    queryFn: fetcher<SecondExampleQuery, SecondExampleQueryVariables>(SecondExampleDocument, variables),
     ...options
   }
     )};
 
-useGetRentalCompanyExtraInfoQuery.getKey = (variables: GetRentalCompanyExtraInfoQueryVariables) => ['GetRentalCompanyExtraInfo', variables];
+useSecondExampleQuery.getKey = (variables: SecondExampleQueryVariables) => ['SecondExample', variables];
 
 
-useGetRentalCompanyExtraInfoQuery.fetcher = (variables: GetRentalCompanyExtraInfoQueryVariables, options?: RequestInit['headers']) => fetcher<GetRentalCompanyExtraInfoQuery, GetRentalCompanyExtraInfoQueryVariables>(GetRentalCompanyExtraInfoDocument, variables, options);
+useSecondExampleQuery.fetcher = (variables: SecondExampleQueryVariables, options?: RequestInit['headers']) => fetcher<SecondExampleQuery, SecondExampleQueryVariables>(SecondExampleDocument, variables, options);

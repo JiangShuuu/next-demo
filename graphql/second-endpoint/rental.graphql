@@ -1,4 +1,4 @@
-query GetRentalCompanyExtraInfo($id: Int!) {
+query SecondExample($id: Int!) {
   getRentalCompanyExtraInfo(rentalCompanyId: $id) {
     rentalCompanyPolicyIds
     rentalCompanyInsuranceProducts {
