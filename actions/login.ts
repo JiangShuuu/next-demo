@@ -5,6 +5,7 @@ import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -20,7 +21,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT
+      redirect: false
     })
   } catch (error) {
     if (error instanceof AuthError) {
@@ -31,7 +32,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
           return { error: "Something went wrong" }
       }
     }
-    console.error(error)
     throw error
-  } 
+  }
+
+  redirect(DEFAULT_LOGIN_REDIRECT)
 };
