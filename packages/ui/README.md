@@ -1,6 +1,8 @@
 ## install
 
 待解決，目前直接裝
+https://github.com/ozdemirrulass/turborepo-shadcn-ui/
+https://github.com/matinkhani/monorepo-turborepo/
 
 ## 專案使用
 
