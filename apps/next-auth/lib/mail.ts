@@ -2,6 +2,15 @@ import { Resend } from "resend";
 
 export const resend = new Resend(process.env.RESEND_EMAIL_API_KEY);
 
+export const sendTwoFactorEmail = async (email: string, token: string) => {
+  await resend.emails.send({
+    from: "john@john.dev",
+    to: email,
+    subject: "2FA Code",
+    html: `<p>Your 2FA code: <strong>${token}</strong>.</p>`
+  });
+};
+
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${token}`;
 

@@ -22,6 +22,7 @@ const config = {
     extend: {
       colors: {
         myColor: "#a16207",
+        destructive: "#ef4444",
       },
       keyframes: {
         "accordion-down": {
