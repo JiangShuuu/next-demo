@@ -130,6 +130,15 @@ const SettingsPage = () => {
                             placeholder="******"
                             disabled={isPending}
                             {...field}
+                            onChange={(e) => {
+                              form.clearErrors("password");
+                              form.clearErrors("newPassword");
+                              if (e.target.value.length > 0) {
+                                form.setValue("password", e.target.value);
+                              } else {
+                                form.setValue("password", undefined);
+                              }
+                            }}
                           />
                         </FormControl>
                         <FormMessage />
@@ -148,6 +157,15 @@ const SettingsPage = () => {
                             placeholder="******"
                             disabled={isPending}
                             {...field}
+                            onChange={(e) => {
+                              form.clearErrors("password");
+                              form.clearErrors("newPassword");
+                              if (e.target.value.length > 0) {
+                                form.setValue("newPassword", e.target.value);
+                              } else {
+                                form.setValue("newPassword", undefined);
+                              }
+                            }}
                           />
                         </FormControl>
                         <FormMessage />
