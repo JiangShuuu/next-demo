@@ -1,0 +1,30 @@
+## 站點 by id
+query FirstExample($id: bigint!) {
+  station_by_pk(id: $id) {
+    name
+    address
+    open
+    close
+    latitude
+    longitude
+    fleet {
+      id
+      telephone
+      organization {
+        name
+      }
+      rental_company {
+        organization {
+          id
+          name
+        }
+        rental_company_policies {
+          rental_policy {
+            id
+            description
+          }
+        }
+      }
+    }
+  }
+}

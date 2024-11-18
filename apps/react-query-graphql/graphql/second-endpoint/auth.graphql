@@ -1,0 +1,20 @@
+## 登入
+mutation CustomerLogin($phoneNumber: String!, $password: String!) {
+  customerLogin(caId: 2, phoneNumber: $phoneNumber, password: $password) {
+    ... on LoginSuccess {
+      __typename
+      token {
+        accessToken
+        tokenType
+      }
+    }
+    ... on LoginFail {
+      __typename
+      message
+    }
+    ... on UnverifiedPhone {
+      __typename
+      message
+    }
+  }
+}
