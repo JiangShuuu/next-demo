@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { fetchPromise } from "@repo/ui/lib/promise";
 
-export function Count() {
+export function Count({ parentCount }: { parentCount: number }) {
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
   const [sec, setSec] = useState(0);
@@ -35,7 +35,7 @@ export function Count() {
     reset();
     incrementErrorWay();
     incrementWay();
-  }, [sec]);
+  }, [sec, parentCount]);
 
   return (
     <div className="flex gap-4">
