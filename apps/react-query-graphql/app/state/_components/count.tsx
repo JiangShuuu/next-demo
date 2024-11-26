@@ -10,6 +10,7 @@ export function Count({ parentCount }: { parentCount: number }) {
   const reset = () => {
     setCount(0);
     setCount2(0);
+    console.log(`way::${count2}, error::${count}`);
   };
 
   const incrementWay = async () => {
