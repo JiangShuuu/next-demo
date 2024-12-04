@@ -12,6 +12,7 @@ export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 export const fetchWithRetry = async (
+  name: string,
   accessToken: string | null,
   query: string,
   variables: any,
@@ -45,7 +46,7 @@ export const fetchWithRetry = async (
     const json = await res.json();
 
     if (json.errors) {
-      console.log('backend fetcher error', json.errors);
+      console.log(`${name} backend fetcher error`, json.errors);
       const { message } = json.errors[0];
       throw new Error(message);
     }
